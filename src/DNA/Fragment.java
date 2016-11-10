@@ -3,6 +3,7 @@ package DNA;
 public class Fragment {
 
 	String chaine;
+	// on devra p-e garder l'inverser en mémoire (si on doit le calculer trop souvent)
 	int id;
 	
 	public Fragment(String chaine, int id){
