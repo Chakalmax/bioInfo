@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import DNA.Fragment;
+import Info.Info;
 
 public class Parseur {
 	// First version of Parseur
@@ -14,18 +15,17 @@ public class Parseur {
 	public ArrayList<Fragment> readFile(String fileName)
 	{
 		ArrayList<Fragment> parse = new ArrayList<Fragment>();
+		Info info = Info.getInstance();
 		try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 		
-			int id=0;
 			String line = br.readLine();
 			while(line != null)
 			{
 				
 				if(line.startsWith(">")){
-					id++;
 					line = br.readLine();
 				}
-				Fragment frag = new Fragment(line,id);
+				Fragment frag = new Fragment(line,info.getNextId());
 				parse.add(frag);
 				line = br.readLine();
 			}

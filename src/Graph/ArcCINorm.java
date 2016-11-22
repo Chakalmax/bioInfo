@@ -8,8 +8,8 @@ import DNA.Fragment;
  */
 public class ArcCINorm extends Arc {
 
-	public ArcCINorm(int poid, Fragment frag) {
-		super(poid, frag);
+	public ArcCINorm(int poid,Fragment start, Fragment end) {
+		super(poid, start,end);
 	}
 	
 	public String ArcType(){

@@ -8,8 +8,8 @@ import DNA.Fragment;
  */
 public class ArcCICI extends Arc {
 
-	public ArcCICI(int poid, Fragment frag) {
-		super(poid, frag);
+	public ArcCICI(int poid,Fragment start, Fragment end) {
+		super(poid, start,end);
 	}
 	
 	public String ArcType(){

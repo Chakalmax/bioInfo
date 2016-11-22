@@ -2,28 +2,34 @@ package Graph;
 
 import DNA.Fragment;
 
-public abstract class Arc {
+public abstract class Arc implements Comparable<Arc> {
 
-	private Fragment frag;
+	private Fragment start;
+	private Fragment end;
 	private int poid;
 
-	public Arc(int poid, Fragment frag){
+	public Arc(int poid,Fragment start, Fragment end){
 		this.poid = poid;
-		this.frag = frag;
+		this.start=start;
+		this.end = end;
+	}
+	@Override
+	public int compareTo(Arc arc){
+		return (this.poid - arc.getPoid());
 	}
 
 	/**
 	 * @return the frag
 	 */
-	public Fragment getFrag() {
-		return frag;
+	public Fragment getEnd() {
+		return end;
 	}
 
 	/**
 	 * @param frag the frag to set
 	 */
-	public void setFrag(Fragment frag) {
-		this.frag = frag;
+	public void setEnd(Fragment frag) {
+		this.end = frag;
 	}
 
 	/**
@@ -38,6 +44,20 @@ public abstract class Arc {
 	 */
 	public void setPoid(int poid) {
 		this.poid = poid;
+	}
+
+	/**
+	 * @return the start
+	 */
+	public Fragment getStart() {
+		return start;
+	}
+
+	/**
+	 * @param start the start to set
+	 */
+	public void setStart(Fragment start) {
+		this.start = start;
 	}
 	
 	/*

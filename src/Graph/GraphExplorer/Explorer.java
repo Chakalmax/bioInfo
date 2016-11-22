@@ -29,7 +29,7 @@ public class Explorer {
 		for(int i=0;i<n;i++){
 			in[i]=false;
 			out[i]=false;
-			fragList.get(i).setId(i);
+			fragList.get(i).setId((short)i);
 			setList.add(new Set(graph.getFrag().get(i)));
 			// refaire le set de telle manière que:
 			// on y accède pas avec un indice de chiasse...

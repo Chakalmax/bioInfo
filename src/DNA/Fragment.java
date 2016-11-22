@@ -5,9 +5,9 @@ public class Fragment implements Comparable<Fragment>{
 	Nucleotide[] chaine;
 	Nucleotide[] reverse;
 	// on devra p-e garder l'inverser en mémoire (si on doit le calculer trop souvent)
-	int id;
+	short id;
 	
-	public Fragment(String chaine, int id){
+	public Fragment(String chaine, short id){
 		int len = chaine.length();
 		Nucleotide[] tmp = new Nucleotide[len];
 		for(int i=0;i<len;i++)
@@ -19,7 +19,7 @@ public class Fragment implements Comparable<Fragment>{
 		this.reverse = compAndReverse(this.chaine);
 	}
 	
-	public Fragment(Nucleotide[] chaine,int id){
+	public Fragment(Nucleotide[] chaine,short id){
 		this.chaine = chaine;
 		this.id = id;
 	}
@@ -36,7 +36,7 @@ public class Fragment implements Comparable<Fragment>{
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(short id) {
 		this.id = id;
 	}
 	
