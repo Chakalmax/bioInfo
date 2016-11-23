@@ -21,13 +21,13 @@ public class main {
 		System.out.println(frag1);
 		ArrayList<Fragment> fragList = new ArrayList<Fragment>();
 		Parseur parseur = new Parseur();
-		fragList = parseur.readFile("C://Users//Maxime//workspace//BioInfo//Bioinfo//Collections//Collections//11200//collection4.fasta");
+		fragList = parseur.readFile("C://Users//Maxime//workspace//BioInfo//Bioinfo//Collections//Collections//10000//collection1.fasta");
 		System.out.println("Correctement open");
 		/*
 		for(Fragment frag: fragList){
 			System.out.println(frag);
-		}
-		System.out.println(fragList.get(0));*/
+		}*/
+		System.out.println(fragList.get(0));
 		Graph graph = new Graph(fragList);
 		System.out.println(graph.getArcList().size());
 		/*
@@ -37,6 +37,7 @@ public class main {
 		Explorer explo = new Explorer();
 		LinkedList<Arc> path = explo.Greedy(graph);
 		System.out.println(path);
+		while(true){}
 		
 		
 

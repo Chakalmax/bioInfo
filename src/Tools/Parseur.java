@@ -22,13 +22,16 @@ public class Parseur {
 			String line = br.readLine();
 			String fragment = "";
 			boolean debut = true; // Sinon on oublie le premier element, ce qui était problématique (à changer eventuellement)
+			// en faite je sais pas pk mais si on met pas ça, il prend la première ligne >machinmachin....
 			while(line != null)
 			{
-				if(line.startsWith(">")&& (fragment != ""||debut) ){
+				if(debut){
+					debut = false;
+				} else
+				if(line.startsWith(">")&& (fragment != "") ){
 					Fragment frag = new Fragment(fragment,Info.getNextId());
 					fragment = "";
 					parse.add(frag);
-					debut = false;
 				}else{
 					fragment = fragment + line;
 				}
