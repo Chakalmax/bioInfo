@@ -11,24 +11,30 @@ import Info.Info;
 
 public class Parseur {
 	// First version of Parseur
+	public Parseur(){}
 
 	public ArrayList<Fragment> readFile(String fileName)
 	{
 		ArrayList<Fragment> parse = new ArrayList<Fragment>();
-		Info info = Info.getInstance();
+		Info.getInstance();
 		try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
 		
 			String line = br.readLine();
+			String fragment = "";
+			boolean debut = true; // Sinon on oublie le premier element, ce qui était problématique (à changer eventuellement)
 			while(line != null)
 			{
-				
-				if(line.startsWith(">")){
-					line = br.readLine();
+				if(line.startsWith(">")&& (fragment != ""||debut) ){
+					Fragment frag = new Fragment(fragment,Info.getNextId());
+					fragment = "";
+					parse.add(frag);
+					debut = false;
+				}else{
+					fragment = fragment + line;
 				}
-				Fragment frag = new Fragment(line,info.getNextId());
-				parse.add(frag);
 				line = br.readLine();
 			}
+			br.close();
 		
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");

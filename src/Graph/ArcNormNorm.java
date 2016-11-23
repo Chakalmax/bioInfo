@@ -8,7 +8,7 @@ import DNA.Fragment;
  */
 public class ArcNormNorm extends Arc {
 
-	public ArcNormNorm(int poid,Fragment start, Fragment end) {
+	public ArcNormNorm(short poid,short start, short end) {
 		super(poid, start,end);
 	}
 	

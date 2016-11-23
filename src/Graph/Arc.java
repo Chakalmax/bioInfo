@@ -4,11 +4,11 @@ import DNA.Fragment;
 
 public abstract class Arc implements Comparable<Arc> {
 
-	private Fragment start;
-	private Fragment end;
-	private int poid;
+	private short start;
+	private short end;
+	private short poid;
 
-	public Arc(int poid,Fragment start, Fragment end){
+	public Arc(short poid,short start, short end){
 		this.poid = poid;
 		this.start=start;
 		this.end = end;
@@ -21,42 +21,42 @@ public abstract class Arc implements Comparable<Arc> {
 	/**
 	 * @return the frag
 	 */
-	public Fragment getEnd() {
+	public short getEnd() {
 		return end;
 	}
 
 	/**
 	 * @param frag the frag to set
 	 */
-	public void setEnd(Fragment frag) {
+	public void setEnd(short frag) {
 		this.end = frag;
 	}
 
 	/**
 	 * @return the poid
 	 */
-	public int getPoid() {
-		return poid;
+	public short getPoid() {
+		return this.poid;
 	}
 
 	/**
 	 * @param poid the poid to set
 	 */
-	public void setPoid(int poid) {
+	public void setPoid(short poid) {
 		this.poid = poid;
 	}
 
 	/**
 	 * @return the start
 	 */
-	public Fragment getStart() {
+	public short getStart() {
 		return start;
 	}
 
 	/**
 	 * @param start the start to set
 	 */
-	public void setStart(Fragment start) {
+	public void setStart(short start) {
 		this.start = start;
 	}
 	

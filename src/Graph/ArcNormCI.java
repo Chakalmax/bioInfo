@@ -8,7 +8,7 @@ import DNA.Fragment;
  */
 public class ArcNormCI extends Arc {
 
-	public ArcNormCI(int poid,Fragment start, Fragment end) {
+	public ArcNormCI(short poid,short start, short end) {
 		super(poid, start,end);
 	}
 
@@ -19,7 +19,7 @@ public class ArcNormCI extends Arc {
 
 	
 	public boolean IsFollowing(Arc arc) {
-		if (arc instanceof ArcCINorm || arc instanceof ArcCINorm)
+		if (arc instanceof ArcNormNorm || arc instanceof ArcCINorm)
 			return true;
 		else
 			return false;

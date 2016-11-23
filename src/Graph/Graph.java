@@ -16,13 +16,13 @@ public class Graph {
 		arcList = new ArrayList<Arc>();
 		
 		for(int i=0; i<frag.size();i++){
-			Fragment fragment1= frag.get(i);
+			short fragment1= frag.get(i).getId();
 			for(int j=i; j<frag.size();j++){
-				Fragment fragment2= frag.get(j);
+				short fragment2= frag.get(j).getId();
 				//calculer les 4 alignements et en faire 4 arc qui vers frag2.
 				//arcNormNorm
 				//int score=Alignement.getScore(fragment1,fragment2);
-				int score= 1;
+				short score= 1;
 				ArcNormNorm arc1_1= new ArcNormNorm(score,fragment1, fragment2);
 				ArcNormNorm arc1_2= new ArcNormNorm(score,fragment2, fragment1);
 				//int score = Alignement.getScore(fragment1.compAndReverse(),fragment2);
