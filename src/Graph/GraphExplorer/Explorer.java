@@ -45,11 +45,12 @@ public class Explorer {
 				Set sg2 = valueSet[g2];
 				if((sf2.isEmtpy()&& sg2.isEmtpy())||(sf2.isEmtpy()&&!sg2.isEmtpy()&&sg2.getSet().getFirst().IsFollowing(arc))
 						||(sg2.isEmtpy() && !sf2.isEmtpy() && arc.IsFollowing(sf2.getSet().getLast())
-								||(!sg2.isEmtpy()&&sf2.isEmtpy()&&arc.IsFollowing(sf2.getSet().getLast())&&sg2.getSet().getFirst().IsFollowing(arc)))){
+								||(!sg2.isEmtpy()&&!sf2.isEmtpy()&&arc.IsFollowing(sf2.getSet().getLast())&&sg2.getSet().getFirst().IsFollowing(arc)))){
 				in[g]=true;
 				out[g]=true;
 				valueSet[f2].getSet().addLast(arc);
 				valueSet[f2].union(valueSet[g2]);
+				valueSet[g2] = null;
 				keySet[g] = keySet[f];
 				
 				nbIter--;

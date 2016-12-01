@@ -23,6 +23,7 @@ public class main {
 		Parseur parseur = new Parseur();
 		fragList = parseur.readFile("C://Users//Maxime//workspace//BioInfo//Bioinfo//Collections//Collections//10000//collection1.fasta");
 		System.out.println("Correctement open");
+		System.out.println("nb de frag :" +fragList.size());
 		/*
 		for(Fragment frag: fragList){
 			System.out.println(frag);
@@ -37,8 +38,7 @@ public class main {
 		Explorer explo = new Explorer();
 		LinkedList<Arc> path = explo.Greedy(graph);
 		System.out.println(path);
-		while(true){}
-		
+		System.out.println("End");
 		
 
 	}

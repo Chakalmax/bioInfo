@@ -92,6 +92,19 @@ public class Fragment implements Comparable<Fragment>{
 		return str;
 	}
 
+	public String getNormAsString(){
+		String str = "";
+		for(int i=0;i<this.chaine.length;i++)
+			str = str + chaine[i].getAsChar();
+		return str;
+	}
+	
+	public String getCIAsString(){
+		String str = "";
+		for(int i=0;i<this.reverse.length;i++)
+			str = str + reverse[i].getAsChar();
+		return str;
+	}
 	/**
 	 * @return the reverse
 	 */
