@@ -17,8 +17,6 @@ public class main {
 		//String str1 = "aaattttggggcccc";
 		//System.out.println(str1.length());
 		Info.getInstance();
-		Fragment frag1 = new Fragment("aaaattttggggcccc", (short)0);
-		System.out.println(frag1);
 		ArrayList<Fragment> fragList = new ArrayList<Fragment>();
 		Parseur parseur = new Parseur();
 		fragList = parseur.readFile("C://Users//Maxime//workspace//BioInfo//Bioinfo//Collections//Collections//10000//collection1.fasta");
@@ -38,7 +36,10 @@ public class main {
 		Explorer explo = new Explorer();
 		LinkedList<Arc> path = explo.Greedy(graph);
 		System.out.println(path);
+		System.out.println("longueur du path: "+ path.size());
 		System.out.println("End");
+		
+		parseur.writeFile("output.fasta", "aaaaaaaaaattttttttttggggggggggatgatgatgcaaaaaaaaaattttttttttggggggggggatgatgatgcaaaaaaaaaattttttttttggggggggggatgatgatgcaaaaaaaaaattttttttttggggggggggatgatgatgcaaaaaaaaaattttttttttggggggggggatgatgatgcttaaccgg", 27);
 		
 
 	}

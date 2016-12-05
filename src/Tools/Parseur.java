@@ -1,8 +1,10 @@
 package Tools;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -48,6 +50,35 @@ public class Parseur {
 		}
 		
 		return parse;
+	}
+	
+	public void writeFile(String outPutName, String frag, int numberCollection){
+		try( BufferedWriter buff = new BufferedWriter(new FileWriter(outPutName))){
+			buff.append(">Groupe-6 Collection");
+			buff.append(Integer.toString(numberCollection));
+			buff.append(" Longueur ");
+			buff.append((Integer.toString((frag.length()))));
+			buff.append("\n");
+			for (int i = 0; i < frag.length(); i+=80) {
+	            for(int j = 0; j < 80; ++j){ //80 caract per line.(convention)
+	                if(i+j < frag.length()) {
+	                    buff.append(frag.charAt(i + j));
+	                    if(i+j>frag.length()){
+	                    	buff.append("\n");
+	                    	break;
+	                    }
+	                }
+	            }
+	            buff.append("\n");
+			}
+	        buff.flush();
+	        buff.close();
+	        
+		} catch(IOException e) {
+			System.out.println("I/O exception");
+			e.printStackTrace();
+		}
+		
 	}
 
 }

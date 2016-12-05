@@ -50,9 +50,9 @@ public class Explorer {
 				out[g]=true;
 				valueSet[f2].getSet().addLast(arc);
 				valueSet[f2].union(valueSet[g2]);
-				valueSet[g2] = null;
+				//valueSet[g2] = null;
 				keySet[g] = keySet[f];
-				
+				endreferenced = f2;
 				nbIter--;
 				if(nbIter==0){
 					break;
@@ -63,7 +63,7 @@ public class Explorer {
 				
 			}
 		}
-		return valueSet[keySet[0]].getSet();
+		return valueSet[endreferenced].getSet();
 	}
 
 	private static ArrayList<Arc> sortByWeight(ArrayList<Arc> arcList) {
