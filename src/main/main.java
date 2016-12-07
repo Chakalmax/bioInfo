@@ -28,6 +28,7 @@ public class main {
 		}*/
 		System.out.println(fragList.get(0));
 		Graph graph = new Graph(fragList);
+		System.out.println(4*fragList.size()*(fragList.size()-1));
 		System.out.println(graph.getArcList().size());
 		/*
 		for(int i=0;i<graph.getArcList().size();i++)
@@ -39,7 +40,8 @@ public class main {
 		System.out.println("longueur du path: "+ path.size());
 		System.out.println("End");
 		
-		parseur.writeFile("output.fasta", "aaaaaaaaaattttttttttggggggggggatgatgatgcaaaaaaaaaattttttttttggggggggggatgatgatgcaaaaaaaaaattttttttttggggggggggatgatgatgcaaaaaaaaaattttttttttggggggggggatgatgatgcaaaaaaaaaattttttttttggggggggggatgatgatgcttaaccgg", 27);
+		//parseur.writeFile("output.fasta", "aaaaaaaaaattttttttttggggggggggatgatgatgcaaaaaaaaaattttttttttggggggggggatgatgatgcaaaaaaaaaattttttttttggggggggggatgatgatgcaaaaaaaaaattttttttttggggggggggatgatgatgcaaaaaaaaaattttttttttggggggggggatgatgatgcttaaccgg", 27);
+
 		
 
 	}

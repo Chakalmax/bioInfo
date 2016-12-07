@@ -14,25 +14,29 @@ public class Graph {
 	
 	public Graph(ArrayList<Fragment> frag){
 		this.frag=frag;
-		arcList = new ArrayList<Arc>();
+		int maxArc = frag.size()*(frag.size()-1)*4;
+		int actualArc =0;
+		arcList = new ArrayList<Arc>(maxArc);//this may cause problem if frag is empty
 		short score;
 		short score2;
+		Alignement al1;
+		Alignement al2;
 		for(int i=0; i<frag.size();i++){
 			short fragment1= frag.get(i).getId();
-			for(int j=i; j<frag.size();j++){
+			for(int j=i+1; j<frag.size();j++){
 				short fragment2= frag.get(j).getId();
 				//for test...
 				//score = 0;
 				//score2 = 1;
 				//calculer les 4 alignements et en faire 4 arc qui vers frag2.
 				//arcNormNorm
-				Alignement al1 = new Alignement(frag.get(j).getNormAsString(),frag.get(i).getNormAsString());
+				al1 = new Alignement(frag.get(j).getNormAsString(),frag.get(i).getNormAsString());
 				al1.calcul();
 				score= al1.getScore();
 				ArcNormNorm arc1_1= new ArcNormNorm(score,fragment1, fragment2);
 				ArcNormNorm arc1_2= new ArcNormNorm(score,fragment2, fragment1);
 
-				Alignement al2 = new Alignement(frag.get(j).getNormAsString(),frag.get(i).getCIAsString());
+				al2 = new Alignement(frag.get(j).getNormAsString(),frag.get(i).getCIAsString());
 				al2.calcul();
 				score2= al2.getScore();
 				ArcNormCI arc2_1= new ArcNormCI(score2,fragment1,fragment2);
@@ -54,10 +58,11 @@ public class Graph {
 				arcList.add(arc2_2);
 				arcList.add(arc3_2);
 				arcList.add(arc4_2);
+				actualArc = actualArc+8;
 			}
 			//System.gc ();
 			//System.runFinalization ();
-			System.out.println("Done: " + ((float)(i+1)/(float)frag.size())*100 +" %");
+			System.out.println("Done: " + ((float)actualArc/(float)maxArc)*100 +" %");
 		}
 		System.out.println("Graph is done");
 	}

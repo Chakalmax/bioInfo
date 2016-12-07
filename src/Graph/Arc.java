@@ -65,4 +65,9 @@ public abstract class Arc implements Comparable<Arc> {
 	 *  NormNorm ,alors celui-ci doit être NormNorm ou NormCI.
 	 */
 	public abstract boolean IsFollowing(Arc arc);
+	@Override
+	public String toString(){
+		String str = "start: "+ this.start + " end: " + this.end + "poid: " + this.poid + "instance:" + this.getClass();
+		return str;
+	}
 }
