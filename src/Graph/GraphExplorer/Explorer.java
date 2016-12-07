@@ -36,8 +36,8 @@ public class Explorer {
 		int nbIter=n-1;
 		short endreferenced=0;
 		for(Arc arc: arcList){
-			int f=arc.getStart();
-			int g=arc.getEnd();
+			short f=arc.getStart();
+			short g=arc.getEnd();
 			if(in[g]==false && out[f]==false && keySet[f]!=keySet[g]){
 				short f2 = keySet[f];
 				short g2 = keySet[g];
@@ -47,14 +47,18 @@ public class Explorer {
 						||(sg2.isEmtpy() && !sf2.isEmtpy() && arc.IsFollowing(sf2.getSet().getLast())
 								||(!sg2.isEmtpy()&&!sf2.isEmtpy()&&arc.IsFollowing(sf2.getSet().getLast())&&sg2.getSet().getFirst().IsFollowing(arc)))){
 				in[g]=true;
-				out[g]=true;
+				out[f]=true;
+				
 				valueSet[f2].getSet().addLast(arc);
 				valueSet[f2].union(valueSet[g2]);
-				//valueSet[g2] = null;
-				keySet[g] = keySet[f];
+				//valueSet[g2] = valueSet[f2];//added
+				for(int i=0;i<keySet.length;i++)
+					if(keySet[i] == g2)
+						keySet[i]=keySet[f];
 				endreferenced = f2;
 				nbIter--;
 				if(nbIter==0){
+					System.out.println("interrupted");
 					break;
 				}
 				}
@@ -63,6 +67,13 @@ public class Explorer {
 				
 			}
 		}
+		System.out.println("pour debug");
+		int val=0;
+		for(int i=0; i< keySet.length;i++){
+			val = val + valueSet[i].getSet().size();
+			//System.out.println(valueSet[i].getSet().size());
+		}
+		System.out.println("value:"+ val);
 		return valueSet[endreferenced].getSet();
 	}
 
