@@ -20,7 +20,7 @@ public class main {
 		Info.getInstance();
 		ArrayList<Fragment> fragList = new ArrayList<Fragment>();
 		Parseur parseur = new Parseur();
-		fragList = parseur.readFile("C://Users//Maxime//workspace//BioInfo//Bioinfo//Collections//Collections//100000//collection2.fasta");
+		fragList = parseur.readFile("C://Users//Maxime//workspace//BioInfo//Bioinfo//Collections//Collections//10000//collection1.fasta");
 		System.out.println("Correctement open");
 		System.out.println("nb de frag :" +fragList.size());
 		/*
@@ -28,9 +28,9 @@ public class main {
 			System.out.println(frag);
 		}*/
 		
-		/**
+		
 		System.out.println(fragList.get(0));
-		Graph graph = new Graph(fragList);
+		Graph graph = new Graph(fragList,true);
 
 		System.out.println(4*fragList.size()*(fragList.size()-1));
 		System.out.println(graph.getArcList().size());
@@ -40,7 +40,7 @@ public class main {
 		System.out.println(path);
 		System.out.println("longueur du path: "+ path.size());
 		System.out.println("End");
-		*/
+		
 		//parseur.writeFile("output.fasta", "aaaaaaaaaattttttttttggggggggggatgatgatgcaaaaaaaaaattttttttttggggggggggatgatgatgcaaaaaaaaaattttttttttggggggggggatgatgatgcaaaaaaaaaattttttttttggggggggggatgatgatgcaaaaaaaaaattttttttttggggggggggatgatgatgcttaaccgg", 27);
 /*
 		GraphThread gt = new GraphThread("t1", fragList, 0, 2);
@@ -55,6 +55,7 @@ public class main {
 		}
 		System.out.println(gt.getArcList().size());
 */		
+		/*
 		ArrayList<GraphThread> threadList = new ArrayList<GraphThread>();
 		int nbDeThread = Runtime.getRuntime().availableProcessors();
 		long debut = System.currentTimeMillis();
@@ -82,17 +83,9 @@ public class main {
 		System.out.println(path);
 		System.out.println("longueur du path: "+ path.size());
 		System.out.println("End");
-		
+		*/
 	}
 	
-	public ArrayList<Arc> runAll(ArrayList<Fragment> frag){
-		int process = Runtime.getRuntime().availableProcessors();
-		ArrayList<GraphThread> threadList = new ArrayList<>();
-		for(int i=0;i<process;i++)
-		{
-			
-		}
-		return null;
-	}
+
 
 }

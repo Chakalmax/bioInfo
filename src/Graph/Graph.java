@@ -10,7 +10,6 @@ import Info.Info;
 
 public class Graph{
 
-	//private ArrayList<Node> nodeList;
 	private ArrayList<Arc> arcList;
 	private ArrayList<Fragment> frag;
 	int actualArc;
@@ -25,15 +24,47 @@ public class Graph{
 			arcList.addAll(t.getArcList());
 		}
 	}
-	public Graph(ArrayList<Fragment> frag){
 
+	public Graph(ArrayList<Fragment> frag,boolean multiThread){
+		
 		this.frag=frag;
 		imax = frag.size();
 		maxArc = frag.size()*(frag.size()-1)*4;
 		actualArc =0;
 		arcList = new ArrayList<Arc>(maxArc);//this may cause problem if frag is empty
 		actuali=0;
-		makeAllArc();
+		if(!multiThread){
+
+			makeAllArc();
+		}
+		else{
+			ArrayList<GraphThread> threadList = new ArrayList<GraphThread>();
+			int nbDeThread = Runtime.getRuntime().availableProcessors();
+			long debut = System.currentTimeMillis();
+			for(int i=0;i<nbDeThread;i++){
+				GraphThread gtx = new GraphThread("t"+i, frag, i, nbDeThread);
+				threadList.add(gtx);
+			}
+			for(GraphThread t: threadList){
+				t.start();
+			}
+			for(GraphThread t: threadList){
+				try {
+					t.join();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			for(GraphThread t : threadList){
+				arcList.addAll(t.getArcList());
+			}
+			System.out.println("Graph is done in ");
+			System.out.println("Time to make the graph: " + (System.currentTimeMillis()-debut) +"ms");
+			
+			
+		}
 	}
 	
 	public void makeAllArc(){
@@ -56,10 +87,7 @@ public class Graph{
 		Alignement al2;
 		for(int j=i+1; j<frag.size();j++){
 			short fragment2= frag.get(j).getId();
-			//for test...
-			//score = 0;
-			//score2 = 1;
-			//calculer les 4 alignements et en faire 4 arc qui vers frag2.
+
 			//arcNormNorm
 			al1 = new Alignement(frag.get(j).getNormAsString(),frag.get(i).getNormAsString());
 			al1.calcul();

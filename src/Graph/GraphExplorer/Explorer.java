@@ -91,7 +91,7 @@ public class Explorer {
 			this.set = arcset;
 		}
 		/*
-		 * Unifie deux set (effet de bord!)
+		 * Unifie deux set (effet de bord!) Ne delete pas le set en param
 		 */
 		public void union(Set set){
 			for(Arc arc: set.getSet()){
