@@ -2,69 +2,95 @@ package Graph;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.RecursiveTask;
 
 import Alignement.Alignement;
 import DNA.Fragment;
+import Info.Info;
 
-public class Graph {
+public class Graph{
 
 	//private ArrayList<Node> nodeList;
 	private ArrayList<Arc> arcList;
 	private ArrayList<Fragment> frag;
+	int actualArc;
+	int maxArc;
+	int imax;
+	int actuali;
 	
+	public Graph(ArrayList<Fragment> frag, ArrayList<GraphThread> graphList){
+		this.frag= frag;
+		arcList = new ArrayList<Arc>();
+		for(GraphThread t : graphList){
+			arcList.addAll(t.getArcList());
+		}
+	}
 	public Graph(ArrayList<Fragment> frag){
+
 		this.frag=frag;
-		int maxArc = frag.size()*(frag.size()-1)*4;
-		int actualArc =0;
+		imax = frag.size();
+		maxArc = frag.size()*(frag.size()-1)*4;
+		actualArc =0;
 		arcList = new ArrayList<Arc>(maxArc);//this may cause problem if frag is empty
+		actuali=0;
+		makeAllArc();
+	}
+	
+	public void makeAllArc(){
+		while(actuali<imax){
+			short fragment1= frag.get(actuali).getId();
+			makeArc(actuali,fragment1);
+			//System.gc ();
+			//System.runFinalization ();
+			System.out.println("Done: " + ((float)actualArc/(float)maxArc)*100 +" %");
+			actuali++;
+		}
+		System.out.println("Graph is done");
+	}
+	
+
+	public void makeArc(int i,short fragment1){
 		short score;
 		short score2;
 		Alignement al1;
 		Alignement al2;
-		for(int i=0; i<frag.size();i++){
-			short fragment1= frag.get(i).getId();
-			for(int j=i+1; j<frag.size();j++){
-				short fragment2= frag.get(j).getId();
-				//for test...
-				//score = 0;
-				//score2 = 1;
-				//calculer les 4 alignements et en faire 4 arc qui vers frag2.
-				//arcNormNorm
-				al1 = new Alignement(frag.get(j).getNormAsString(),frag.get(i).getNormAsString());
-				al1.calcul();
-				score= al1.getScore();
-				ArcNormNorm arc1_1= new ArcNormNorm(score,fragment1, fragment2);
-				ArcNormNorm arc1_2= new ArcNormNorm(score,fragment2, fragment1);
+		for(int j=i+1; j<frag.size();j++){
+			short fragment2= frag.get(j).getId();
+			//for test...
+			//score = 0;
+			//score2 = 1;
+			//calculer les 4 alignements et en faire 4 arc qui vers frag2.
+			//arcNormNorm
+			al1 = new Alignement(frag.get(j).getNormAsString(),frag.get(i).getNormAsString());
+			al1.calcul();
+			score= al1.getScore();
+			ArcNormNorm arc1_1= new ArcNormNorm(score,fragment1, fragment2);
+			ArcNormNorm arc1_2= new ArcNormNorm(score,fragment2, fragment1);
 
-				al2 = new Alignement(frag.get(j).getNormAsString(),frag.get(i).getCIAsString());
-				al2.calcul();
-				score2= al2.getScore();
-				ArcNormCI arc2_1= new ArcNormCI(score2,fragment1,fragment2);
-				ArcNormCI arc2_2= new ArcNormCI(score2,fragment2,fragment1);
+			al2 = new Alignement(frag.get(j).getNormAsString(),frag.get(i).getCIAsString());
+			al2.calcul();
+			score2= al2.getScore();
+			ArcNormCI arc2_1= new ArcNormCI(score2,fragment1,fragment2);
+			ArcNormCI arc2_2= new ArcNormCI(score2,fragment2,fragment1);
 
 
-				ArcCINorm arc3_1= new ArcCINorm(score2,fragment1,fragment2);
-				ArcCINorm arc3_2= new ArcCINorm(score2,fragment2,fragment1);
-				//Le score inverse/inverse est le même que normal/normal.
+			ArcCINorm arc3_1= new ArcCINorm(score2,fragment1,fragment2);
+			ArcCINorm arc3_2= new ArcCINorm(score2,fragment2,fragment1);
+			//Le score inverse/inverse est le même que normal/normal.
 
-				ArcCICI arc4_1 = new ArcCICI(score,fragment1,fragment2);
-				ArcCICI arc4_2 = new ArcCICI(score,fragment2,fragment1);
-				
-				arcList.add(arc1_1);
-				arcList.add(arc2_1);
-				arcList.add(arc3_1);
-				arcList.add(arc4_1);
-				arcList.add(arc1_2);
-				arcList.add(arc2_2);
-				arcList.add(arc3_2);
-				arcList.add(arc4_2);
-				actualArc = actualArc+8;
-			}
-			//System.gc ();
-			//System.runFinalization ();
-			System.out.println("Done: " + ((float)actualArc/(float)maxArc)*100 +" %");
+			ArcCICI arc4_1 = new ArcCICI(score,fragment1,fragment2);
+			ArcCICI arc4_2 = new ArcCICI(score,fragment2,fragment1);
+			
+			arcList.add(arc1_1);
+			arcList.add(arc2_1);
+			arcList.add(arc3_1);
+			arcList.add(arc4_1);
+			arcList.add(arc1_2);
+			arcList.add(arc2_2);
+			arcList.add(arc3_2);
+			arcList.add(arc4_2);
+			actualArc = actualArc+8;
 		}
-		System.out.println("Graph is done");
 	}
 /**
 	private ArrayList<Node> makeNodeList(ArrayList<Fragment> frag){
@@ -105,5 +131,18 @@ public ArrayList<Fragment> getFrag() {
 public void setFrag(ArrayList<Fragment> frag) {
 	this.frag = frag;
 }
-	
+
+
+	public int getImax() {
+		return imax;
+	}
+
+	public void setImax(int imax) {
+		this.imax = imax;
+	}
+
 }
+
+
+	
+

@@ -51,10 +51,10 @@ public class Explorer {
 				
 				valueSet[f2].getSet().addLast(arc);
 				valueSet[f2].union(valueSet[g2]);
-				//valueSet[g2] = valueSet[f2];//added
 				for(int i=0;i<keySet.length;i++)
 					if(keySet[i] == g2)
 						keySet[i]=keySet[f];
+				valueSet[g2] = null;
 				endreferenced = f2;
 				nbIter--;
 				if(nbIter==0){
@@ -67,13 +67,7 @@ public class Explorer {
 				
 			}
 		}
-		System.out.println("pour debug");
-		int val=0;
-		for(int i=0; i< keySet.length;i++){
-			val = val + valueSet[i].getSet().size();
-			//System.out.println(valueSet[i].getSet().size());
-		}
-		System.out.println("value:"+ val);
+
 		return valueSet[endreferenced].getSet();
 	}
 

@@ -1,5 +1,7 @@
 package Info;
 
+import Graph.Graph;
+
 public class Info {
 	
 	/** Constructeur privé */
@@ -22,4 +24,8 @@ public class Info {
 	public static short getNextId(){
 		return id++;
 	}
+
+
+	
+	
 }
