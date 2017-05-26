@@ -1,8 +1,12 @@
 package main;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import Alignement.Alignement;
 import DNA.*;
 import Graph.Arc;
 import Graph.Graph;
@@ -13,78 +17,88 @@ import Tools.Parseur;
 public class main {
 
 	public static void main(String[] args) {
-		//Nucleotide nuc1 = new Nucleotide('a');
-		//System.out.println(nuc1);
-		//String str1 = "aaattttggggcccc";
-		//System.out.println(str1.length());
+		/*if (args.length<5)
+		{
+
+			System.out.println("Arguments manquant");
+		}
+		else
+		{*/
+		String chemin = args[0];
+		String out1 ="";
+		String out2 ="";
+		for (int ind =0;ind < args.length;ind++)
+		{
+			if ((args[ind].equals("-out") || args[ind].equals("--out")) && args[ind+1] !=null)
+				out1 = args[ind+1];
+			if ((args[ind].equals("-out-ic") || args[ind].equals("--out-ic")) && args[ind+1] !=null)
+				out2 = args[ind+1];
+			
+				
+		}
+		String num = chemin;
+		boolean numero = false;
+		String numberString = "";
+		int number = 1;
+		num =num.substring(0,num.length()-6);
+		while(!numero && num.length()!=0)
+		{
+			if (num.charAt(num.length()-1) == 'n')
+				numero = true;
+			else
+			{
+				numberString += num.charAt(num.length()-1);
+				num=num.substring(0,num.length()-1);
+			}
+		}
+		try {
+			new StringBuilder(numberString).reverse().toString();
+			number = Integer.parseInt(numberString);
+		}
+		catch(Exception e)
+		{}
+
+		if (out1.equals(""))
+			out1 = "cible"+Integer.toString(number)+".fasta";
+		if (out2.equals(""))
+			out2 = "cibleIC"+Integer.toString(number)+".fasta";
 		Info.getInstance();
 		ArrayList<Fragment> fragList = new ArrayList<Fragment>();
 		Parseur parseur = new Parseur();
-		fragList = parseur.readFile("C://Users//Maxime//workspace//BioInfo//Bioinfo//Collections//Collections//10000//collection1.fasta");
-		System.out.println("Correctement open");
-		System.out.println("nb de frag :" +fragList.size());
+		//fragList = parseur.readFile("C://Users//Ewen//Desktop//Cours informatique//Master 1//BioInfo//Projet//Collections//Collections//10000//collection1.fasta");
+		fragList = parseur.readFile(chemin);
+		System.out.println("nombre de fragments :" +fragList.size());
 		/*
 		for(Fragment frag: fragList){
 			System.out.println(frag);
 		}*/
 		
-		
-		System.out.println(fragList.get(0));
+		//System.out.println(fragList.get(0));
 		Graph graph = new Graph(fragList,true);
 
-		System.out.println(4*fragList.size()*(fragList.size()-1));
-		System.out.println(graph.getArcList().size());
+		//System.out.println(4*fragList.size()*(fragList.size()-1));
+		//System.out.println(graph.getArcList().size());
 
 		Explorer explo = new Explorer();
 		LinkedList<Arc> path = explo.Greedy(graph);
-		System.out.println(path);
-		System.out.println("longueur du path: "+ path.size());
-		System.out.println("End");
+		//System.out.println(path);
+		String res = Assemblage.getAlignement3(fragList,path);
 		
-		//parseur.writeFile("output.fasta", "aaaaaaaaaattttttttttggggggggggatgatgatgcaaaaaaaaaattttttttttggggggggggatgatgatgcaaaaaaaaaattttttttttggggggggggatgatgatgcaaaaaaaaaattttttttttggggggggggatgatgatgcaaaaaaaaaattttttttttggggggggggatgatgatgcttaaccgg", 27);
-/*
-		GraphThread gt = new GraphThread("t1", fragList, 0, 2);
-		gt.start();
-		GraphThread gt2 = new GraphThread("t2", fragList, 1, 2);
-		gt2.start();
-		try {
-			gt.join();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		System.out.println("Ecriture dans les fichiers "+ out1+" et " +out2);
+		Parseur parse = new Parseur();
+		//parse.writeFile("output.fasta",res,1);
+		parse.writeFile(out1,res,number);
+		
+		Fragment e = new Fragment(res,(short)2000);
+	    res = e.getCIAsString();
+	   
+		//parse.writeFile("outputInverse.fasta",res,1);
+	    parse.writeFile(out2,res,number);
+
+		System.out.println("Fin");
 		}
-		System.out.println(gt.getArcList().size());
-*/		
-		/*
-		ArrayList<GraphThread> threadList = new ArrayList<GraphThread>();
-		int nbDeThread = Runtime.getRuntime().availableProcessors();
-		long debut = System.currentTimeMillis();
-		for(int i=0;i<nbDeThread;i++){
-			GraphThread gtx = new GraphThread("t"+i, fragList, i, nbDeThread);
-			threadList.add(gtx);
-		}
-		for(GraphThread t: threadList){
-			t.start();
-		}
-		for(GraphThread t: threadList){
-			try {
-				t.join();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		Graph graph = new Graph(fragList,threadList);
-		System.out.println(4*fragList.size()*(fragList.size()-1));
-		System.out.println(graph.getArcList().size());
-		System.out.println("Time: " + (System.currentTimeMillis()-debut) +"ms");
-		Explorer explo = new Explorer();
-		LinkedList<Arc> path = explo.Greedy(graph);
-		System.out.println(path);
-		System.out.println("longueur du path: "+ path.size());
-		System.out.println("End");
-		*/
-	}
+		
+	
 	
 
 

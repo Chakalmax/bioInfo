@@ -39,6 +39,8 @@ public class Parseur {
 				}
 				line = br.readLine();
 			}
+			Fragment frag= new Fragment(fragment,Info.getNextId());
+			parse.add(frag);
 			br.close();
 		
 		} catch (FileNotFoundException e) {

@@ -128,7 +128,6 @@ public class Graph{
 		}
 		return nodeL;
 	}
-
 	
 	public ArrayList<Node> getNodeList() {
 		return nodeList;
@@ -173,4 +172,3 @@ public void setFrag(ArrayList<Fragment> frag) {
 
 
 	
-

@@ -58,7 +58,6 @@ public class Explorer {
 				endreferenced = f2;
 				nbIter--;
 				if(nbIter==0){
-					System.out.println("interrupted");
 					break;
 				}
 				}
@@ -91,7 +90,7 @@ public class Explorer {
 			this.set = arcset;
 		}
 		/*
-		 * Unifie deux set (effet de bord!) Ne delete pas le set en param
+		 * Unifie deux set (effet de bord!)
 		 */
 		public void union(Set set){
 			for(Arc arc: set.getSet()){

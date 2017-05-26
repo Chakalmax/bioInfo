@@ -85,6 +85,7 @@ public class Fragment implements Comparable<Fragment>{
 		for(int i=0;i<this.chaine.length;i++){
 			str = str+ chaine[i].getAsChar();
 		}
+		System.out.println();
 		str = str + " Inversé : ";
 		for(int i=0;i<this.reverse.length;i++){
 			str = str+ reverse[i].getAsChar();
